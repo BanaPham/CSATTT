@@ -89,23 +89,23 @@
     </div>
 
     <script>
-    const modal = document.getElementById('smart-contract-modal');
-    if (modal) {
-        const borrowButton = modal.querySelector('.borrow-btn');
-        const agreeCheckbox = modal.querySelector('.agree-label input[type="checkbox"]');
+        const modal = document.getElementById('smart-contract-modal');
+        if (modal) {
+            const borrowButton = modal.querySelector('.borrow-btn');
+            const agreeCheckbox = modal.querySelector('.agree-label input[type="checkbox"]');
 
-        if (borrowButton && agreeCheckbox) {
-            function updateButtonState() {
-                if (agreeCheckbox.checked) {
-                    borrowButton.disabled = false;
-                } else {
-                    borrowButton.disabled = true;
+            if (borrowButton && agreeCheckbox) {
+                function updateButtonState() {
+                    if (agreeCheckbox.checked) {
+                        borrowButton.disabled = false;
+                    } else {
+                        borrowButton.disabled = true;
+                    }
                 }
+                agreeCheckbox.addEventListener('change', updateButtonState);
+                updateButtonState();
             }
-            agreeCheckbox.addEventListener('change', updateButtonState);
-            updateButtonState();
-        }
-    };
-</script>
+        };
+    </script>
 </body>
 </html>

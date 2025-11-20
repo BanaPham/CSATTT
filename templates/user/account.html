@@ -190,41 +190,31 @@
         });
 
         const overlay = document.getElementById('smart-contract-overlay');
-    const closeOverlayBtn = document.getElementById('close-overlay-btn');
-    
-    // 2. Lấy TẤT CẢ các "cuốn sách" trong tab "My Order"
-    const allBooksInOrder = document.querySelectorAll('.main-order .book');
+        const closeOverlayBtn = document.getElementById('close-overlay-btn');
+        const allBooksInOrder = document.querySelectorAll('.main-order .book');
+        function showOverlay() {
+            if (overlay) overlay.style.display = 'flex';
+        }
+        function hideOverlay() {
+            if (overlay) overlay.style.display = 'none';
+        }
 
-    // 3. Hàm Mở và Đóng
-    function showOverlay() {
-        if (overlay) overlay.style.display = 'flex';
-    }
-    function hideOverlay() {
-        if (overlay) overlay.style.display = 'none';
-    }
-
-    // 4. Gắn sự kiện MỞ cho TẤT CẢ các cuốn sách
-    allBooksInOrder.forEach(book => {
-        // Thêm cursor: pointer để người dùng biết là bấm vào được
-        book.style.cursor = 'pointer'; 
-        book.addEventListener('click', showOverlay);
-    });
-
-    // 5. Gắn sự kiện ĐÓNG (khi bấm dấu 'x')
-    if (closeOverlayBtn) {
-        closeOverlayBtn.addEventListener('click', hideOverlay);
-    }
-
-    // 6. Gắn sự kiện ĐÓNG (khi bấm ra ngoài nền mờ)
-    if (overlay) {
-        overlay.addEventListener('click', (event) => {
-            // event.target là phần tử BỊ CLICK TRỰC TIẾP
-            // Chỉ đóng khi click vào chính cái nền (overlay)
-            if (event.target === overlay) {
-                hideOverlay();
-            }
+        allBooksInOrder.forEach(book => {
+            book.style.cursor = 'pointer'; 
+            book.addEventListener('click', showOverlay);
         });
-    }
+
+        if (closeOverlayBtn) {
+            closeOverlayBtn.addEventListener('click', hideOverlay);
+        }
+
+        if (overlay) {
+            overlay.addEventListener('click', (event) => {
+                if (event.target === overlay) {
+                    hideOverlay();
+                }
+            });
+        }
     </script>
 </body>
 </html>
