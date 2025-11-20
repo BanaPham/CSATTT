@@ -52,11 +52,6 @@ def invoice():
 @app.route('/admin_staff')
 def adminnstaff():
     return render_template('admin/adminnstaff.html')
-# @app.route('/admin/<active_tab>')
-# def admin(active_tab='category'):
-#     if active_tab not in ['category', 'invoice', 'adminnstaff']:
-#         active_tab = 'category' 
-#     return render_template('admin/home.html', active_tab=active_tab)
 
 @app.route('/model_images/<filename>')
 def get_model_image(filename):
@@ -67,4 +62,9 @@ if __name__ == "__main__":
         if not path.exists('user.db'):
             db.create_all() 
     app.run(debug = True)
+    port = 5000
+    app.run(
+        host='0.0.0.0', 
+        port=port
+    )
 
