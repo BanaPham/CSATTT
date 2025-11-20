@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sách</title>
+    <link href='https://cdn.boxicons.com/3.0.3/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/adminnstaff.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Short+Stack&family=Unica+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ultra&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-content">
+        <div class="admin-staff-container">
+            <div class="admin-staff-header">
+                <h2 class="admin-staff-title">ADMINS AND STAFFS</h2>
+                <i class='bx bx-plus-square' id='add-staff-trigger' title='Click to add new Admin/Staff'></i>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                    <i class='bx bx-search'></i>
+                </div>
+            </div>
+
+            <table class="admin-staff-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Họ và tên</th>
+                        <th>Tên đăng nhập</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Đỗ Vinh</td>
+                        <td>vinhql</td>
+                        <td>admin</td>
+                        <td>034864688</td>
+                        <td><span class="delete-btn">Xoá</span></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Ngọc Tuyết Lâm</td>
+                        <td>lamlam</td>
+                        <td>lamnt@gmail.com</td>
+                        <td>886703234</td>
+                        <td><span class="delete-btn">Xoá</span></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Nguyễn Minh Ngọc</td>
+                        <td>nocnoc</td>
+                        <td>noc@gmail.com</td>
+                        <td>082357683</td>
+                        <td><span class="delete-btn">Xoá</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="overlay-backdrop" id="add-staff-overlay">
+            <div class="modal-container">
+                <span class="modal-close-button">&times;</span>
+                
+                <h3 class="modal-title">Add New Admin/Staff</h3>
+                
+                <form class="modal-form" id="add-staff-form">
+                    <div class="form-group">
+                        <label for="modal-staff-hoten">Họ tên</label>
+                        <input type="text" id="modal-staff-hoten" name="ho_ten">
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-staff-username">Tên đăng nhập</label>
+                        <input type="text" id="modal-staff-username" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-staff-email">Email</label>
+                        <input type="email" id="modal-staff-email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-staff-password">Password</label>
+                        <input type="password" id="modal-staff-password" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-staff-sdt">Số điện thoại</label>
+                        <input type="tel" id="modal-staff-sdt" name="sdt">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modal-staff-role">Chức năng</label>
+                        <select id="modal-staff-role" name="role">
+                            <option value="Staff" selected>Staff</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group-button">
+                        <button type="submit" class="add-button">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

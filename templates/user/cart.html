@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sách</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='user/cart.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Short+Stack&family=Unica+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ultra&display=swap" rel="stylesheet">
+</head>
+<body>
+    {% include 'user/header.html' %}
+
+    <div class="cart-container">
+        <div class="cart-header">
+            <input type="checkbox" id="select-all">
+            <label for="select-all">Select all</label>
+        </div>
+
+        <div class="cart-items">
+            <div class="book">
+                <div class="bia">
+                    <input type="checkbox" id="select">
+                    <img src="{{ url_for('get_model_image', filename='muado.jpg') }}" alt="logo">
+                    <div class="details">
+                        <h4>Book Name</h4>
+                        <p>Author name</p>
+                        <div class="quantity-selector">
+                            <button class="sub"><i class='bx bx-minus'></i></button>
+                            <input type="text" value="01" class="val">
+                            <button class="add"><i class='bx bx-plus'></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="action">
+                    <p class="price">$30.00</p>
+                    <i class='bx  bx-trash'></i> 
+                </div>
+            </div>
+            <div class="book">
+                <div class="bia">
+                    <input type="checkbox" id="select">
+                    <img src="{{ url_for('get_model_image', filename='muado.jpg') }}" alt="logo">
+                    <div class="details">
+                        <h4>Book Name</h4>
+                        <p>Author name</p>
+                        <div class="quantity-selector">
+                            <button class="sub"><i class='bx bx-minus'></i></button>
+                            <input type="text" value="01" class="val">
+                            <button class="add"><i class='bx bx-plus'></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="action">
+                    <p class="price">$30.00</p>
+                    <i class='bx  bx-trash'></i> 
+                </div>
+            </div>
+            <div class="book">
+                <div class="bia">
+                    <input type="checkbox" id="select">
+                    <img src="{{ url_for('get_model_image', filename='muado.jpg') }}" alt="logo">
+                    <div class="details">
+                        <h4>Book Name</h4>
+                        <p>Author name</p>
+                        <div class="quantity-selector">
+                            <button class="sub"><i class='bx bx-minus'></i></button>
+                            <input type="text" value="01" class="val">
+                            <button class="add"><i class='bx bx-plus'></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="action">
+                    <p class="price">$30.00</p>
+                    <i class='bx  bx-trash'></i> 
+                </div>
+            </div>
+            <div class="book">
+                <div class="bia">
+                    <input type="checkbox" id="select">
+                    <img src="{{ url_for('get_model_image', filename='muado.jpg') }}" alt="logo">
+                    <div class="details">
+                        <h4>Book Name</h4>
+                        <p>Author name</p>
+                        <div class="quantity-selector">
+                            <button class="sub"><i class='bx bx-minus'></i></button>
+                            <input type="text" value="01" class="val">
+                            <button class="add"><i class='bx bx-plus'></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="action">
+                    <p class="price">$30.00</p>
+                    <i class='bx  bx-trash'></i> 
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-footer">
+            <div class="balance">
+                <p class="value">
+                    <input type="checkbox">
+                    <img src="{{ url_for('get_model_image', filename='xu.png') }}" alt="logo">
+                    <span style="margin-right: 5px;">30,00</span>
+                </p>
+            </div>
+            <div class="total">
+                <span>Total: $0,00</span>
+            </div>
+            <button class="order-btn">Order</button>
+        </div>
+    </div>
+
+    {% include 'user/contract.html' %}
+
+    {% include 'user/footer.html' %}
+
+    <script>
+        const totalElement = document.querySelector('.total span');
+        const pointsCheckbox = document.querySelector('.balance .value input[type="checkbox"]');
+        const pointsValueElement = document.querySelector('.balance .value span');
+        
+        function updateTotalPrice() {
+            const allBooks = document.querySelectorAll('.cart-items .book');
+            let total = 0;
+
+            allBooks.forEach(book => {
+                const checkbox = book.querySelector('input[type="checkbox"]');
+                if (checkbox.checked) {
+                    const priceText = book.querySelector('.price').textContent;
+                    const quantityText = book.querySelector('.val').value;
+                    const price = parseFloat(priceText.replace('$', '').replace(',', '.'));
+                    const quantity = parseInt(quantityText);
+                    total += price * quantity;
+                }
+            });
+
+            if (pointsCheckbox.checked) {
+                const pointsText = pointsValueElement.textContent;
+                const discountAmount = parseFloat(pointsText.replace(',', '.'));
+                total = Math.max(0, total - discountAmount);
+            }
+
+            totalElement.textContent = `Total: $${total.toFixed(2).replace('.', ',')}`;
+        }
+
+        const quantitySelectors = document.querySelectorAll('.quantity-selector');
+        quantitySelectors.forEach(selector => {
+            const addButton = selector.querySelector('.add');
+            const subButton = selector.querySelector('.sub');
+            const valueInput = selector.querySelector('.val');
+            
+            const minValue = 1;
+            const maxValue = 50;
+
+            addButton.addEventListener('click', () => {
+                let currentValue = parseInt(valueInput.value);
+                if (currentValue < maxValue) {
+                    currentValue++;
+                    valueInput.value = String(currentValue).padStart(2, '0');
+                    updateTotalPrice();
+                }
+            });
+
+            subButton.addEventListener('click', () => {
+                let currentValue = parseInt(valueInput.value);
+                if (currentValue > minValue) {
+                    currentValue--;
+                    valueInput.value = String(currentValue).padStart(2, '0');
+                    updateTotalPrice();
+                }
+            });
+
+            valueInput.addEventListener('change', () => {
+                let currentValue = parseInt(valueInput.value) || minValue; 
+                if (currentValue < minValue) currentValue = minValue;
+                if (currentValue > maxValue) currentValue = maxValue;
+                valueInput.value = String(currentValue).padStart(2, '0');
+                updateTotalPrice();
+            });
+        });
+
+        const selectAllCheckbox = document.getElementById('select-all');
+        const bookCheckboxes = document.querySelectorAll('.cart-items .book input[type="checkbox"]');
+
+        selectAllCheckbox.addEventListener('change', () => {
+            const isChecked = selectAllCheckbox.checked;
+            bookCheckboxes.forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+            updateTotalPrice();
+        });
+
+        bookCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                updateTotalPrice();
+            });
+        });
+
+        const trashIcons = document.querySelectorAll('.bx-trash');
+        trashIcons.forEach(icon => {
+            icon.addEventListener('click', () => {
+                const bookElement = icon.closest('.book');
+                if (bookElement) {
+                    bookElement.remove();
+                    updateTotalPrice();
+                }
+            });
+        });
+
+        pointsCheckbox.addEventListener('change', updateTotalPrice);
+
+        updateTotalPrice();
+
+        const orderButton = document.querySelector('.order-btn');
+        const modalOverlay = document.getElementById('smart-contract-modal');
+        const modalCloseButton = document.querySelector('.modal-close');
+
+        orderButton.addEventListener('click', () => {
+            modalOverlay.classList.add('show');
+        });
+
+        modalCloseButton.addEventListener('click', () => {
+            modalOverlay.classList.remove('show');
+        });
+
+        modalOverlay.addEventListener('click', (event) => {
+            if (event.target === modalOverlay) {
+                modalOverlay.classList.remove('show');
+            }
+        });
+
+        let slideIndex = 1;
+        const sliderContainer = document.getElementById('smart-contract-modal');
+        const slides = sliderContainer.querySelectorAll(".book-info-slide");
+        const dots = sliderContainer.querySelectorAll(".dot");
+        const track = sliderContainer.querySelector(".book-slider-track");
+
+        const prevButton = sliderContainer.querySelector('.prev');
+        const nextButton = sliderContainer.querySelector('.next');
+        function updateButtonStates() {
+            if (!prevButton || !nextButton) return; 
+
+            if (slideIndex === 1) {
+                prevButton.style.visibility = 'hidden'; 
+            } else {
+                prevButton.style.visibility = 'visible';
+            }
+
+            if (slideIndex === slides.length) {
+                nextButton.style.visibility = 'hidden'; 
+            } else {
+                nextButton.style.visibility = 'visible'; 
+            }
+        }
+
+        function showSlide(n) {
+            slideIndex = n;
+            dots.forEach(dot => dot.classList.remove("active"));
+            if (dots.length > 0) {
+                dots[slideIndex - 1].classList.add("active");
+            }
+            if (track) {
+                track.style.transform = 'translateX(-' + (slideIndex - 1) * 100 + '%)';
+            }
+            updateButtonStates();
+        }
+        showSlide(slideIndex);
+        if (prevButton) {
+            prevButton.addEventListener('click', () => {
+                if (slideIndex > 1) { 
+                    showSlide(slideIndex - 1);
+                }
+            });
+        }
+
+        if (nextButton) {
+            nextButton.addEventListener('click', () => {
+                if (slideIndex < slides.length) { 
+                    showSlide(slideIndex + 1);
+                }
+            });
+        }
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index + 1);
+            });
+        });
+
+        orderButton.addEventListener('click', () => {
+            if (track) {
+                track.style.transition = 'none'; 
+                showSlide(1); 
+                setTimeout(() => {
+                    track.style.transition = 'transform 0.4s ease-in-out';
+                }, 0);
+            }
+
+            if (modalOverlay) {
+                modalOverlay.classList.add('show'); 
+            }
+        });
+    </script>
+</body>
+</html>

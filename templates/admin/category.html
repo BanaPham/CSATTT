@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sách</title>
+    <link href='https://cdn.boxicons.com/3.0.3/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/category.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Short+Stack&family=Unica+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ultra&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-content">
+        <div class="category-container">
+            <div class="category-header">
+                <h2 class="category-title">BOOK CATEGORY</h2>
+                <i class='bx bx-book-add' id='add-book-trigger' title='Click to add new book'></i>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                    <i class='bx bx-search'></i>
+                </div>
+            </div>
+
+            <table class="category-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>ID sách</th>
+                        <th>Tên sách</th>
+                        <th>Hình ảnh</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Book123</td>
+                        <td>Princess</td>
+                        <td>
+                            <img src="{{ url_for('get_model_image', filename='muado.jpg') }}" alt="logo">
+                        </td>
+                        <td>200,000</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Book234</td>
+                        <td>Lược sử loài người</td>
+                        <td>
+                            <img src="{{ url_for('get_model_image', filename='muado.jpg') }}" alt="logo">
+                        </td>
+                        <td>95,000</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Book345</td>
+                        <td>Chí Phèo</td>
+                        <td>
+                            <img src="{{ url_for('get_model_image', filename='muado.jpg') }}" alt="logo">
+                        </td>
+                        <td>50,000</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Book345</td>
+                        <td>Chí Phèo</td>
+                        <td>
+                            <img src="{{ url_for('get_model_image', filename='muado.jpg') }}" alt="logo">
+                        </td>
+                        <td>50,000</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Book345</td>
+                        <td>Chí Phèo</td>
+                        <td>
+                            <img src="{{ url_for('get_model_image', filename='muado.jpg') }}" alt="logo">
+                        </td>
+                        <td>50,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="overlay-backdrop" id="book-details-overlay">
+            <div class="modal-container">
+                <span class="modal-close-button" id="modal-close">&times;</span>
+                
+                <h3 class="modal-title">Book Details</h3>
+                
+                <form class="modal-form" id="book-details-form">
+                    <div class="form-group form-group-book-id">
+                        <label for="modal-book-id">ID sách</label>
+                        <input type="text" id="modal-book-id" name="book_id" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-book-name">Tên sách</label>
+                        <input type="text" id="modal-book-name" name="book_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-book-newness">Độ mới</label>
+                        <input type="text" id="modal-book-newness" name="book_newness" value="90%">
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-book-price">Giá cọc</label>
+                        <input type="text" id="modal-book-price" name="book_price">
+                    </div>
+                    
+                    <div class="form-group-image">
+                        <label>Hình ảnh</label>
+                        <div class="image-upload-area">
+                            <img src="" alt="Book Preview" id="modal-book-image-preview">
+                            <div class="file-input-wrapper">
+                                <input type="text" id="file-name-display" readonly>
+                                <label for="modal-file-upload" class="file-upload-button">Choose File</label>
+                                <input type="file" id="modal-file-upload" name="book_image" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modal-book-description">Mô tả</label>
+                        <textarea id="modal-book-description" name="book_description" rows="6"></textarea>
+                    </div>
+                    
+                    <div class="form-group-button">
+                        <button type="submit" class="save-button">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
