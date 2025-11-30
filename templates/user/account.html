@@ -88,6 +88,38 @@
                             </div>
                         </div>
                     </div>
+                    <div class="book">
+                        <div class="bia">
+                            <img src="{{ url_for('get_model_image', filename='muado.jpg') }}" alt="logo">
+                            <div class="details">
+                                <h4>Book Name</h4>
+                                <p>Author name</p>
+                            </div>
+                        </div>
+                        <div class="action">
+                            <p class="price">$30.00</p>
+                            <div class="status">
+                                <span class="status-dot"></span>
+                                <span class="status-text">Chưa trả</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="book">
+                        <div class="bia">
+                            <img src="{{ url_for('get_model_image', filename='muado.jpg') }}" alt="logo">
+                            <div class="details">
+                                <h4>Book Name</h4>
+                                <p>Author name</p>
+                            </div>
+                        </div>
+                        <div class="action">
+                            <p class="price">$30.00</p>
+                            <div class="status">
+                                <span class="status-dot"></span>
+                                <span class="status-text">Trả muộn</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,7 +159,8 @@
         const orderBtn = document.getElementById('orderBtn');
         const profileContent = document.getElementById('profileContent');
         const orderContent = document.getElementById('orderContent');
-        let currentRating = 0;
+        const overlay = document.getElementById('smart-contract-overlay');
+        const closeOverlayBtn = document.getElementById('close-overlay-btn');
 
         function showTab(tabName) {
             if (tabName === 'profile') {
@@ -144,42 +177,26 @@
                 history.pushState(null, '', '/account/order');
             }
         }
-        
-        profileBtn.addEventListener('click', function() {
-            showTab('profile');
-        });
+        profileBtn.addEventListener('click', () => showTab('profile'));
+        orderBtn.addEventListener('click', () => showTab('order'));
 
-        orderBtn.addEventListener('click', function() {
-            showTab('order');
-        });
-        
-        if ('{{ active_tab }}' === 'profile') {
-            profileBtn.classList.add('active');
-        } else {
-            orderBtn.classList.add('active');
-        }
-
-        const allStatusElements = document.querySelectorAll('.status');
-
-        allStatusElements.forEach(statusEl => {
+        function updateStatusStyle(statusEl) {
             const dotElement = statusEl.querySelector('.status-dot');
             const textElement = statusEl.querySelector('.status-text');
+            const statusText = textElement.textContent.trim();
 
             if (dotElement && textElement) {
-                const statusText = textElement.textContent.trim();
                 switch (statusText) {
                     case 'Trả đúng hạn':
                         dotElement.style.backgroundColor = '#28a745'; 
                         textElement.style.color = '#28a745';
                         statusEl.style.backgroundColor = '#eaf6ec'; 
                         break;
-                        
                     case 'Trả muộn':
                         dotElement.style.backgroundColor = '#dc3545';
                         textElement.style.color = '#dc3545';
                         statusEl.style.backgroundColor = '#fbebee';
                         break;
-                        
                     case 'Chưa trả':
                         dotElement.style.backgroundColor = '#ffc107'; 
                         textElement.style.color = '#d89e00'; 
@@ -187,34 +204,49 @@
                         break;
                 }
             }
-        });
+        }
 
-        const overlay = document.getElementById('smart-contract-overlay');
-        const closeOverlayBtn = document.getElementById('close-overlay-btn');
         const allBooksInOrder = document.querySelectorAll('.main-order .book');
-        function showOverlay() {
-            if (overlay) overlay.style.display = 'flex';
-        }
-        function hideOverlay() {
-            if (overlay) overlay.style.display = 'none';
-        }
-
         allBooksInOrder.forEach(book => {
-            book.style.cursor = 'pointer'; 
-            book.addEventListener('click', showOverlay);
+            const statusEl = book.querySelector('.status');
+            const statusTextEl = book.querySelector('.status-text');
+            const actionDiv = book.querySelector('.action');
+            updateStatusStyle(statusEl);
+
+            if (statusTextEl.textContent.trim() === 'Chưa trả') {
+                const returnBtn = document.createElement('button');
+                returnBtn.className = 'return-btn';
+                returnBtn.textContent = 'Trả sách';
+                book.style.marginBottom = '20px';
+
+                returnBtn.addEventListener('click', function(e) {
+                    e.stopPropagation(); 
+                    alert("Bạn đã trả sách thành công!");
+                    statusTextEl.textContent = 'Trả đúng hạn';
+                    updateStatusStyle(statusEl); 
+                    returnBtn.remove();
+                    book.style.marginBottom = '';
+                });
+
+                actionDiv.appendChild(returnBtn);
+            }
+
+            book.style.cursor = 'pointer';
+            book.addEventListener('click', function() {
+                const currentStatus = statusTextEl.textContent.trim();
+                if (currentStatus === 'Chưa trả') {
+                    return; 
+                }
+                if (overlay) overlay.style.display = 'flex';
+            });
         });
 
-        if (closeOverlayBtn) {
-            closeOverlayBtn.addEventListener('click', hideOverlay);
-        }
+        function hideOverlay() { if (overlay) overlay.style.display = 'none'; }
+        if (closeOverlayBtn) closeOverlayBtn.addEventListener('click', hideOverlay);
+        if (overlay) overlay.addEventListener('click', (e) => { if (e.target === overlay) hideOverlay(); });
 
-        if (overlay) {
-            overlay.addEventListener('click', (event) => {
-                if (event.target === overlay) {
-                    hideOverlay();
-                }
-            });
-        }
+        if ('{{ active_tab }}' === 'profile') { profileBtn.classList.add('active'); } 
+        else { orderBtn.classList.add('active'); }
     </script>
 </body>
 </html>

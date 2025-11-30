@@ -125,9 +125,7 @@
                     const overlay = document.getElementById(overlayId);
                     overlay.querySelector('.modal-title').textContent = 'Book Details';
                     overlay.querySelector('.save-button').textContent = 'Save';
-                    overlay.querySelector('.form-group-book-id').style.display = 'flex'; 
 
-                    document.getElementById('modal-book-id').value = categoryRow.cells[1].textContent.trim();
                     document.getElementById('modal-book-name').value = categoryRow.cells[2].textContent.trim();
                     document.getElementById('modal-book-image-preview').src = categoryRow.cells[3].querySelector('img').src;
                     document.getElementById('modal-book-price').value = categoryRow.cells[4].textContent.trim();
@@ -144,9 +142,7 @@
                     const overlay = document.getElementById(overlayId);
                     overlay.querySelector('.modal-title').textContent = 'Add New Book';
                     overlay.querySelector('.save-button').textContent = 'Add';
-                    overlay.querySelector('.form-group-book-id').style.display = 'none'; 
 
-                    document.getElementById('modal-book-id').value = '';
                     document.getElementById('modal-book-name').value = '';
                     document.getElementById('modal-book-price').value = '';
                     document.getElementById('modal-book-newness').value = '90%';

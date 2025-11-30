@@ -72,7 +72,7 @@
                     <p>Ngày trả: 8/12/2025</p>
                     <p>Số lượng: 2</p>
                     <p>Tổng tiền cọc: 2000 $</p>
-                    <button class="borrow-btn">Borrow</button>
+                    <button id="confirm-contract-btn" class="borrow-btn">Borrow</button>
                 </div>
                 <div class="contract-column note-column">
                     <h3>Lưu ý đối với việc mượn/trả sách</h3>
@@ -89,23 +89,38 @@
     </div>
 
     <script>
-        const modal = document.getElementById('smart-contract-modal');
-        if (modal) {
-            const borrowButton = modal.querySelector('.borrow-btn');
-            const agreeCheckbox = modal.querySelector('.agree-label input[type="checkbox"]');
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('smart-contract-modal');
+            
+            if (modal) {
+                const borrowButton = modal.querySelector('.borrow-btn'); 
+                const agreeCheckbox = modal.querySelector('.agree-label input[type="checkbox"]');
 
-            if (borrowButton && agreeCheckbox) {
-                function updateButtonState() {
-                    if (agreeCheckbox.checked) {
-                        borrowButton.disabled = false;
-                    } else {
-                        borrowButton.disabled = true;
+                if (borrowButton && agreeCheckbox) {
+                    function updateButtonState() {
+                        if (agreeCheckbox.checked) {
+                            borrowButton.disabled = false;
+                            borrowButton.style.opacity = "1";
+                            borrowButton.style.cursor = "pointer";
+                        } else {
+                            borrowButton.disabled = true;
+                            borrowButton.style.opacity = "0.5";
+                            borrowButton.style.cursor = "not-allowed";
+                        }
                     }
+                    agreeCheckbox.addEventListener('change', updateButtonState);
+                    updateButtonState();
+
+                    borrowButton.addEventListener('click', function(e) {
+                        e.preventDefault(); 
+                        alert('Bạn đã mượn sách thành công!');
+                        modal.classList.remove('show');
+                        agreeCheckbox.checked = false;
+                        updateButtonState();
+                    });
                 }
-                agreeCheckbox.addEventListener('change', updateButtonState);
-                updateButtonState();
             }
-        };
+        });
     </script>
 </body>
 </html>

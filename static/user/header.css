@@ -29,9 +29,9 @@ header {
     margin-left: 40px;
 }
 
-.ultra-regular {
+.logo a h2 {
     font-family: "Ultra", serif;
-    font-weight: 400;
+    font-weight: 600;
     color: white;
     font-size: 25px;
     display: flex;

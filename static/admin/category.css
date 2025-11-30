@@ -219,6 +219,48 @@
     border-radius: 8px;
 }
 
+.form-row-split {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+}
+
+.form-row-split .form-group:first-child {
+    display: flex;
+    align-items: center;
+}
+
+.form-row-split .form-group:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; 
+    flex-grow: 1; 
+}
+
+.form-row-split .form-group:first-child label {
+    flex-basis: 150px !important; 
+    min-width: 150px !important;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.form-row-split .form-group:last-child label {
+    margin-right: 10px; 
+    white-space: nowrap;
+}
+
+#modal-book-category,
+#modal-book-newness {
+    width: 180px !important; 
+}
+
+#modal-book-quantity,
+#modal-book-price {
+    width: 110px !important; 
+    margin-right: 20px; 
+}
+
 .file-input-wrapper {
     flex-grow: 1;
 }
